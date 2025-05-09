@@ -1,0 +1,77 @@
+<Window x:Class="Hotel_Client.View.HomePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Hotel_Client.ViewModel"
+        Title="Home" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:HomePageViewModel />
+    </Window.DataContext>
+
+    <DockPanel Background="White">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="My account">
+                <MenuItem Header="Make a reservation" Command="{Binding MakeReservationCommand}"/>
+                <MenuItem Header="Get reservations" Command="{Binding GetReservationsCommand}"/>
+                <MenuItem Header="Logout" Command="{Binding LogoutCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Find a room" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="From" Foreground="Black"/>
+                        <DatePicker SelectedDate="{Binding DateFrom}"/>
+                    </StackPanel>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="To" Foreground="Black"/>
+                        <DatePicker SelectedDate="{Binding DateTo}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Grid.Row="2" Content="Search" Command="{Binding GetRoomsCommand}" Width="150" Background="#4087a7" Foreground="White" Margin="0,20" HorizontalAlignment="Center"/>
+
+                <ListView Grid.Row="3" ItemsSource="{Binding Rooms}" Margin="0,20,0,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="DarkGray" CornerRadius="10" Padding="10" Margin="5">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding RoomNumber, StringFormat=Room number: {0}}" Foreground="White" FontWeight="Bold"/>
+                                    <Button Grid.Row="0" Grid.Column="1" Content="Add" Command="{Binding DataContext.AddRoomCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Margin="10,0,0,0" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RoomSize, StringFormat=Room size: {0}}" Foreground="White" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Description, StringFormat=Description: {0}}" Foreground="White" Margin="0,10,0,0"/>
+
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.RoomSelectionCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}"/>
+                                    </Border.InputBindings>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </Grid>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

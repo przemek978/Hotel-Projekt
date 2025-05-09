@@ -1,0 +1,66 @@
+<Window x:Class="Hotel_Client.View.MakeReservationPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Hotel_Client.ViewModel"
+        Title="Make Reservation" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:MakeReservationPageViewModel />
+    </Window.DataContext>
+
+    <ScrollViewer>
+        <Grid Background="White" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Make a reservation" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="From"/>
+                        <DatePicker SelectedDate="{Binding DateFrom}"/>
+                    </StackPanel>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="To"/>
+                        <DatePicker SelectedDate="{Binding DateTo}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Border BorderBrush="#4087a7" BorderThickness="1" CornerRadius="10" Width="400" Height="300" Margin="0,0,0,20">
+                    <TextBox Text="{Binding Note}" AcceptsReturn="True" TextWrapping="Wrap" FontWeight="Bold" Foreground="Black" Padding="10"/>
+                </Border>
+
+                <Button Content="Confirm reservation" Command="{Binding ConfirmReservationCommand}" Width="200" Height="40" Background="#4087a7" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                <ItemsControl ItemsSource="{Binding BookedRooms}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="DarkGray" CornerRadius="14" Padding="10" Margin="5">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding RoomNumber, StringFormat=Room number: {0}}" Foreground="White" FontWeight="Bold"/>
+                                    <Button Grid.Row="0" Grid.Column="1" Content="Remove" Command="{Binding DataContext.RemoveRoomCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding .}" Margin="5,0,0,0"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RoomSize, StringFormat=Room size: {0} square meters}" Foreground="White" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Description, StringFormat=Description: {0}}" Foreground="White" Margin="0,10,0,0"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
