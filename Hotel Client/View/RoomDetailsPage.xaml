@@ -1,0 +1,51 @@
+<Window x:Class="Hotel_Client.View.RoomDetailsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Hotel_Client.ViewModel"
+        Title="Room Details" Height="600" Width="400" WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:RoomDetailsPageViewModel />
+    </Window.DataContext>
+
+    <ScrollViewer Background="White">
+        <StackPanel Margin="20">
+            <TextBlock Text="Room details" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20" />
+
+            <TextBlock Text="Room number:" FontWeight="Bold" />
+            <TextBlock Text="{Binding Room.RoomNumber}" />
+
+            <TextBlock Text="Floor number:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Room.FloorNumber}" />
+
+            <TextBlock Text="Double bed:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding HasDoubleBed}" />
+
+            <TextBlock Text="Single beds:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Room.NumberOfSingleBeds}" />
+
+            <TextBlock Text="Room size:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock>
+                <Run Text="{Binding Room.RoomSize}" />
+                <Run Text=" square meters" />
+            </TextBlock>
+
+            <TextBlock Text="Bathroom in room:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding HasBathroom}" />
+
+            <TextBlock Text="Is room a presidential suite:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding IsPresidentialSuite}" />
+
+            <TextBlock Text="Window direction:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Room.WindowDirection}" />
+
+            <TextBlock Text="Short description:" FontWeight="Bold" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Room.Description}" />
+
+            <Button Content="Add to reservation"
+                    Command="{Binding AddRoomReservationCommand}"
+                    Background="#4087a7" Foreground="White" Width="200" Height="40" Margin="0,20,0,0"
+                    HorizontalAlignment="Center" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>
