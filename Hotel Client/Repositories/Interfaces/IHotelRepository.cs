@@ -1,7 +1,7 @@
-﻿using HotelReservation.Models;
+﻿using Hotel_Client.Models;
 //using HotelReservation.Models.Requests;
 
-namespace HotelReservation.Repositories.Interfaces;
+namespace Hotel_Client.Repositories.Interfaces;
 
 public interface IHotelRepository
 {

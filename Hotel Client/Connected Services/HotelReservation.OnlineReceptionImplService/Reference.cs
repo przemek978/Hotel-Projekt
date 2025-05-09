@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotelReservation.OnlineReceptionImplService
+namespace Hotel_Client.OnlineReceptionImplService
 {
     
     
@@ -324,53 +324,53 @@ namespace HotelReservation.OnlineReceptionImplService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://hotelserver.group.hotel.com/", ConfigurationName="HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://hotelserver.group.hotel.com/", ConfigurationName="Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl")]
     public interface OnlineReceptionImpl
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/getReservationsRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/getReservationsResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.getReservationsResponse> getReservationsAsync(HotelReservation.OnlineReceptionImplService.getReservationsRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.getReservationsResponse> getReservationsAsync(Hotel_Client.OnlineReceptionImplService.getReservationsRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/makeReservationRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/makeReservationResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/makeReservation/Fault/BadR" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/makeReservation/Fault/BadR" +
             "equestException", Name="BadRequestException")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.makeReservationResponse> makeReservationAsync(HotelReservation.OnlineReceptionImplService.makeReservationRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.makeReservationResponse> makeReservationAsync(Hotel_Client.OnlineReceptionImplService.makeReservationRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/loginRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/loginResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.InvalidCredentialsException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/login/Fault/InvalidCredent" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.InvalidCredentialsException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/login/Fault/InvalidCredent" +
             "ialsException", Name="InvalidCredentialsException")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.loginResponse> loginAsync(HotelReservation.OnlineReceptionImplService.loginRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.loginResponse> loginAsync(Hotel_Client.OnlineReceptionImplService.loginRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/cancelReservationRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/cancelReservationResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/cancelReservation/Fault/Ba" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/cancelReservation/Fault/Ba" +
             "dRequestException", Name="BadRequestException")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.cancelReservationResponse> cancelReservationAsync(HotelReservation.OnlineReceptionImplService.cancelReservationRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.cancelReservationResponse> cancelReservationAsync(Hotel_Client.OnlineReceptionImplService.cancelReservationRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/modifyReservationRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/modifyReservationResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/modifyReservation/Fault/Ba" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/modifyReservation/Fault/Ba" +
             "dRequestException", Name="BadRequestException")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.modifyReservationResponse> modifyReservationAsync(HotelReservation.OnlineReceptionImplService.modifyReservationRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.modifyReservationResponse> modifyReservationAsync(Hotel_Client.OnlineReceptionImplService.modifyReservationRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/requestReservationConfirma" +
             "tionRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/requestReservationConfirma" +
             "tionResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/requestReservationConfirma" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/requestReservationConfirma" +
             "tion/Fault/BadRequestException", Name="BadRequestException")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.DocumentException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/requestReservationConfirma" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.DocumentException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/requestReservationConfirma" +
             "tion/Fault/DocumentException", Name="DocumentException")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.requestReservationConfirmationResponse> requestReservationConfirmationAsync(HotelReservation.OnlineReceptionImplService.requestReservationConfirmationRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationResponse> requestReservationConfirmationAsync(Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/getAvailableRoomsRequest", ReplyAction="http://hotelserver.group.hotel.com/OnlineReceptionImpl/getAvailableRoomsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(HotelReservation.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/getAvailableRooms/Fault/Ba" +
+        [System.ServiceModel.FaultContractAttribute(typeof(Hotel_Client.OnlineReceptionImplService.BadRequestException), Action="http://hotelserver.group.hotel.com/OnlineReceptionImpl/getAvailableRooms/Fault/Ba" +
             "dRequestException", Name="BadRequestException")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.getAvailableRoomsResponse> getAvailableRoomsAsync(HotelReservation.OnlineReceptionImplService.getAvailableRoomsRequest request);
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.getAvailableRoomsResponse> getAvailableRoomsAsync(Hotel_Client.OnlineReceptionImplService.getAvailableRoomsRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -403,13 +403,13 @@ namespace HotelReservation.OnlineReceptionImplService
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://hotelserver.group.hotel.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public HotelReservation.OnlineReceptionImplService.reservation[] @return;
+        public Hotel_Client.OnlineReceptionImplService.reservation[] @return;
         
         public getReservationsResponse()
         {
         }
         
-        public getReservationsResponse(HotelReservation.OnlineReceptionImplService.reservation[] @return)
+        public getReservationsResponse(Hotel_Client.OnlineReceptionImplService.reservation[] @return)
         {
             this.@return = @return;
         }
@@ -675,7 +675,7 @@ namespace HotelReservation.OnlineReceptionImplService
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://hotelserver.group.hotel.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public HotelReservation.OnlineReceptionImplService.modifiedReservation arg0;
+        public Hotel_Client.OnlineReceptionImplService.modifiedReservation arg0;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://hotelserver.group.hotel.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -685,7 +685,7 @@ namespace HotelReservation.OnlineReceptionImplService
         {
         }
         
-        public modifyReservationRequest(HotelReservation.OnlineReceptionImplService.modifiedReservation arg0, int arg1)
+        public modifyReservationRequest(Hotel_Client.OnlineReceptionImplService.modifiedReservation arg0, int arg1)
         {
             this.arg0 = arg0;
             this.arg1 = arg1;
@@ -786,26 +786,26 @@ namespace HotelReservation.OnlineReceptionImplService
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://hotelserver.group.hotel.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public HotelReservation.OnlineReceptionImplService.room[] @return;
+        public Hotel_Client.OnlineReceptionImplService.room[] @return;
         
         public getAvailableRoomsResponse()
         {
         }
         
-        public getAvailableRoomsResponse(HotelReservation.OnlineReceptionImplService.room[] @return)
+        public getAvailableRoomsResponse(Hotel_Client.OnlineReceptionImplService.room[] @return)
         {
             this.@return = @return;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    public interface OnlineReceptionImplChannel : HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl, System.ServiceModel.IClientChannel
+    public interface OnlineReceptionImplChannel : Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    public partial class OnlineReceptionImplClient : System.ServiceModel.ClientBase<HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl>, HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl
+    public partial class OnlineReceptionImplClient : System.ServiceModel.ClientBase<Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl>, Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl
     {
         
         /// <summary>
@@ -849,103 +849,103 @@ namespace HotelReservation.OnlineReceptionImplService
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.getReservationsResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.getReservationsAsync(HotelReservation.OnlineReceptionImplService.getReservationsRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.getReservationsResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.getReservationsAsync(Hotel_Client.OnlineReceptionImplService.getReservationsRequest request)
         {
             return base.Channel.getReservationsAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.getReservationsResponse> getReservationsAsync(int arg0)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.getReservationsResponse> getReservationsAsync(int arg0)
         {
-            HotelReservation.OnlineReceptionImplService.getReservationsRequest inValue = new HotelReservation.OnlineReceptionImplService.getReservationsRequest();
+            Hotel_Client.OnlineReceptionImplService.getReservationsRequest inValue = new Hotel_Client.OnlineReceptionImplService.getReservationsRequest();
             inValue.arg0 = arg0;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).getReservationsAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).getReservationsAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.makeReservationResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.makeReservationAsync(HotelReservation.OnlineReceptionImplService.makeReservationRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.makeReservationResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.makeReservationAsync(Hotel_Client.OnlineReceptionImplService.makeReservationRequest request)
         {
             return base.Channel.makeReservationAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.makeReservationResponse> makeReservationAsync(string[] arg0, string arg1, string arg2, string arg3, int arg4)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.makeReservationResponse> makeReservationAsync(string[] arg0, string arg1, string arg2, string arg3, int arg4)
         {
-            HotelReservation.OnlineReceptionImplService.makeReservationRequest inValue = new HotelReservation.OnlineReceptionImplService.makeReservationRequest();
+            Hotel_Client.OnlineReceptionImplService.makeReservationRequest inValue = new Hotel_Client.OnlineReceptionImplService.makeReservationRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
             inValue.arg2 = arg2;
             inValue.arg3 = arg3;
             inValue.arg4 = arg4;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).makeReservationAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).makeReservationAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.loginResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.loginAsync(HotelReservation.OnlineReceptionImplService.loginRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.loginResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.loginAsync(Hotel_Client.OnlineReceptionImplService.loginRequest request)
         {
             return base.Channel.loginAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.loginResponse> loginAsync(string arg0, string arg1)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.loginResponse> loginAsync(string arg0, string arg1)
         {
-            HotelReservation.OnlineReceptionImplService.loginRequest inValue = new HotelReservation.OnlineReceptionImplService.loginRequest();
+            Hotel_Client.OnlineReceptionImplService.loginRequest inValue = new Hotel_Client.OnlineReceptionImplService.loginRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).loginAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).loginAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.cancelReservationResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.cancelReservationAsync(HotelReservation.OnlineReceptionImplService.cancelReservationRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.cancelReservationResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.cancelReservationAsync(Hotel_Client.OnlineReceptionImplService.cancelReservationRequest request)
         {
             return base.Channel.cancelReservationAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.cancelReservationResponse> cancelReservationAsync(int arg0, int arg1)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.cancelReservationResponse> cancelReservationAsync(int arg0, int arg1)
         {
-            HotelReservation.OnlineReceptionImplService.cancelReservationRequest inValue = new HotelReservation.OnlineReceptionImplService.cancelReservationRequest();
+            Hotel_Client.OnlineReceptionImplService.cancelReservationRequest inValue = new Hotel_Client.OnlineReceptionImplService.cancelReservationRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).cancelReservationAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).cancelReservationAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.modifyReservationResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.modifyReservationAsync(HotelReservation.OnlineReceptionImplService.modifyReservationRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.modifyReservationResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.modifyReservationAsync(Hotel_Client.OnlineReceptionImplService.modifyReservationRequest request)
         {
             return base.Channel.modifyReservationAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.modifyReservationResponse> modifyReservationAsync(HotelReservation.OnlineReceptionImplService.modifiedReservation arg0, int arg1)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.modifyReservationResponse> modifyReservationAsync(Hotel_Client.OnlineReceptionImplService.modifiedReservation arg0, int arg1)
         {
-            HotelReservation.OnlineReceptionImplService.modifyReservationRequest inValue = new HotelReservation.OnlineReceptionImplService.modifyReservationRequest();
+            Hotel_Client.OnlineReceptionImplService.modifyReservationRequest inValue = new Hotel_Client.OnlineReceptionImplService.modifyReservationRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).modifyReservationAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).modifyReservationAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.requestReservationConfirmationResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.requestReservationConfirmationAsync(HotelReservation.OnlineReceptionImplService.requestReservationConfirmationRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.requestReservationConfirmationAsync(Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationRequest request)
         {
             return base.Channel.requestReservationConfirmationAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.requestReservationConfirmationResponse> requestReservationConfirmationAsync(int arg0, int arg1)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationResponse> requestReservationConfirmationAsync(int arg0, int arg1)
         {
-            HotelReservation.OnlineReceptionImplService.requestReservationConfirmationRequest inValue = new HotelReservation.OnlineReceptionImplService.requestReservationConfirmationRequest();
+            Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationRequest inValue = new Hotel_Client.OnlineReceptionImplService.requestReservationConfirmationRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).requestReservationConfirmationAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).requestReservationConfirmationAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.getAvailableRoomsResponse> HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl.getAvailableRoomsAsync(HotelReservation.OnlineReceptionImplService.getAvailableRoomsRequest request)
+        System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.getAvailableRoomsResponse> Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl.getAvailableRoomsAsync(Hotel_Client.OnlineReceptionImplService.getAvailableRoomsRequest request)
         {
             return base.Channel.getAvailableRoomsAsync(request);
         }
         
-        public System.Threading.Tasks.Task<HotelReservation.OnlineReceptionImplService.getAvailableRoomsResponse> getAvailableRoomsAsync(string arg0, string arg1)
+        public System.Threading.Tasks.Task<Hotel_Client.OnlineReceptionImplService.getAvailableRoomsResponse> getAvailableRoomsAsync(string arg0, string arg1)
         {
-            HotelReservation.OnlineReceptionImplService.getAvailableRoomsRequest inValue = new HotelReservation.OnlineReceptionImplService.getAvailableRoomsRequest();
+            Hotel_Client.OnlineReceptionImplService.getAvailableRoomsRequest inValue = new Hotel_Client.OnlineReceptionImplService.getAvailableRoomsRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
-            return ((HotelReservation.OnlineReceptionImplService.OnlineReceptionImpl)(this)).getAvailableRoomsAsync(inValue);
+            return ((Hotel_Client.OnlineReceptionImplService.OnlineReceptionImpl)(this)).getAvailableRoomsAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

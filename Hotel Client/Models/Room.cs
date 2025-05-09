@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HotelReservation.Models;
+namespace Hotel_Client.Models;
 
 public class Room
 {

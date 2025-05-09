@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using HotelReservation.Models.Util;
+using Hotel_Client.Models.Util;
 
-namespace HotelReservation.Models;
+namespace Hotel_Client.Models;
 
 public class Reservation
 {

@@ -1,12 +1,12 @@
 ﻿using System.Globalization;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using HotelReservation.Models;
-//using HotelReservation.Models.Requests;
-using HotelReservation.OnlineReceptionImplService;
-using HotelReservation.Repositories.Interfaces;
+using Hotel_Client.Models;
+//using Hotel_Client.Models.Requests;
+using Hotel_Client.OnlineReceptionImplService;
+using Hotel_Client.Repositories.Interfaces;
 
-namespace HotelReservation.Repositories;
+namespace Hotel_Client.Repositories;
 
 public class HotelRepository : IHotelRepository
 {

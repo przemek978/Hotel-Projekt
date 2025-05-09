@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HotelReservation.Models.Util;
+namespace Hotel_Client.Models.Util;
 
 public class CustomDateTimeConverter : JsonConverter<DateTime>
 {

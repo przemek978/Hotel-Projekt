@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HotelReservation.Models.Requests;
+namespace Hotel_Client.Models.Requests;
 
 public class AddReservationRequestModel
 {
