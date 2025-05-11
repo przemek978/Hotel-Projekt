@@ -6,6 +6,7 @@ using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services.Interfaces;
 using System.Windows;
 using Hotel_Client.View;
+using Hotel_Client.Models.Util;
 
 namespace Hotel_Client.ViewModel
 {
@@ -68,7 +69,7 @@ namespace Hotel_Client.ViewModel
             }
             else
             {
-                await _alertService.ShowAlertAsync("Error", "Please select at least one room!", "Close");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, UIText.SelectLeastOneRoomMessage, UIText.CloseLabelButton);
             }
         }
 
@@ -86,14 +87,14 @@ namespace Hotel_Client.ViewModel
                 var bookedRoomsNumbers = BookedRooms.Select(r => r.RoomNumber).ToList();
                 var reservationNumber = await _hotelRepository.MakeReservation(bookedRoomsNumbers, DateFrom, DateTo, Note, userId);
 
-                await _alertService.ShowAlertAsync("Confirmation", $"Your reservation number: {reservationNumber}", "Close");
+                await _alertService.ShowAlertAsync(UIText.ConfirmTitle, string.Format(UIText.ReservationNumberFormatMessage, reservationNumber), UIText.CloseLabelButton);
 
                 BookedRooms.Clear();
                 Note = string.Empty;
             }
             catch (Exception e)
             {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Exit");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, e.Message, UIText.CloseLabelButton);
             }
         }
 

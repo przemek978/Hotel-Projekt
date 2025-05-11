@@ -42,21 +42,7 @@ namespace Hotel_Client.Models.Util
         public const string NotesFormat = "Notatka: {0}";
         public const string DetailsButton = "Szczegóły";
 
-        // === Menu ===
-        public const string MenuAccount = "Konto";
-        public const string MenuMakeReservation = "Nowa rezerwacja";
-        public const string MenuGetReservations = "Moje rezerwacje";
-        public const string MenuLogout = "Wyloguj";
-
-        // === Alerts ===
-        public const string ErrorTitle = "Error";
-        public const string ConfirmTitle = "Potwierdzenie";
-        public const string InfoTitle = "Info";
-        public const string MissingRoomMessage = "Wybierz przynajmniej jeden pokój!";
-        public const string InvalidLoginMessage = "Nieprawidłowa nazwa użytkownika lub hasło.";
-        public const string CloseTitle = "Zamknij";
-
-
+        //Reservation Details
         public const string ReservationNumberLabel = "Numer rezerwacji: ";
         public const string FromDateLabel = "Od: ";
         public const string ToDateLabel = "Do: ";
@@ -79,5 +65,28 @@ namespace Hotel_Client.Models.Util
         public const string WindowDirectionLabel = "Kierunek okien:";
         public const string DescriptionLabel = "Opis:";
         public const string AddToReservationButton = "Dodaj do rezerwacji";
+
+        //Menu
+        public const string MenuAccount = "Konto";
+        public const string MenuMakeReservation = "Nowa rezerwacja";
+        public const string MenuGetReservations = "Moje rezerwacje";
+        public const string MenuLogout = "Wyloguj";
+
+        //Alerts
+        ///Titles
+        public const string ErrorTitle = "ERROR";
+        public const string ConfirmTitle = "POTWIERDZENIE";
+        public const string InfoTitle = "INFO";
+        ///Buttons
+        public const string CloseLabelButton = "Zamknij";
+        public const string CancelLabelButton = "Anuluj";
+        ///Messages
+        public const string MissingRoomMessage = "Wybierz przynajmniej jeden pokój!";
+        public const string InvalidLoginMessage = "Nieprawidłowa nazwa użytkownika lub hasło.";
+        public const string AddRoomConfirmMessage = "Pokój dodany do rezerwacji!";
+        public const string SelectLeastOneRoomMessage = "Wybierz przynajmniej jeden pokój!";
+        public const string ReservationNumberFormatMessage = "Twój numer rezerwacji: {0}";
+        public const string SaveChanges = "Zapisano zmiany!";
+        public const string DocumentSaved = "Potwierdzenie rezerwacji zostało zapisane w {0}";
     }
 }

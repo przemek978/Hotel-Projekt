@@ -41,7 +41,7 @@ public class OnlineReceptionImpl implements OnlineReception {
             }
         } catch (Exception ignore) {
         }
-        throw new InvalidCredentialsException();
+        throw new InvalidCredentialsException("Invalid username or password");
     }
 
     @Override

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Hotel_Client.Models;
+using Hotel_Client.Models.Util;
 using Hotel_Client.Repositories;
 using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services;
@@ -53,7 +54,7 @@ namespace Hotel_Client.ViewModel
             }
             catch (Exception e)
             {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Cancel");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, e.Message, UIText.CancelLabelButton);
             }
         }
 
@@ -67,7 +68,8 @@ namespace Hotel_Client.ViewModel
         public async Task AddRoom(Room selectedRoom)
         {
             await _shareService.AddRoom<Room>(selectedRoom.RoomNumber, selectedRoom);
-            await _alertService.ShowAlertAsync("Confirmation", "Added room to reservation!", "Exit");
+            await _alertService.ShowAlertAsync(UIText.ConfirmTitle, UIText.AddRoomConfirmMessage, UIText.CloseLabelButton);
+
             Rooms.Remove(selectedRoom);
         }
 
@@ -82,7 +84,7 @@ namespace Hotel_Client.ViewModel
             }
             else
             {
-                await _alertService.ShowAlertAsync("Error", "Wybierz przynajmniej jeden pokój!", "Zamknij");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, UIText.SelectLeastOneRoomMessage, UIText.CloseLabelButton);
             }
         }
 

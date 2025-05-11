@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Hotel_Client.Models;
+using Hotel_Client.Models.Util;
 using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services.Interfaces;
 using Hotel_Client.View;
@@ -43,7 +44,7 @@ namespace Hotel_Client.ViewModel
             }
             catch (Exception e)
             {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Exit");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, e.Message, UIText.CloseLabelButton);
             }
         }
 
@@ -57,7 +58,7 @@ namespace Hotel_Client.ViewModel
             }
             catch (Exception e)
             {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Exit");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, e.Message, UIText.CloseLabelButton);
             }
         }
 
@@ -74,7 +75,7 @@ namespace Hotel_Client.ViewModel
             var documentResponse = await _hotelRepository.GetConfirmationDocument(selectedReservation.Number, userId);
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "confirmation.pdf");
             await File.WriteAllBytesAsync(path, documentResponse);
-            await _alertService.ShowAlertAsync("Info", "Successfully saved file in Documents folder!", "Exit");
+            await _alertService.ShowAlertAsync(UIText.InfoTitle, string.Format(UIText.DocumentSaved, path), UIText.CloseLabelButton);
         }
     }
 }

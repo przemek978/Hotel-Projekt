@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Hotel_Client.Models;
+using Hotel_Client.Models.Util;
 using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services.Interfaces;
 namespace Hotel_Client.ViewModel
@@ -72,11 +73,11 @@ namespace Hotel_Client.ViewModel
                 };
 
                 await _hotelRepository.ModifyReservation(newReservation, userId);
-                await _alertService.ShowAlertAsync("Confirmation", "Saved changes!", "Close");
+                await _alertService.ShowAlertAsync(UIText.ConfirmTitle, UIText.SaveChanges, UIText.CloseLabelButton);
             }
             catch (Exception e)
             {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Close");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, e.Message, UIText.CloseLabelButton);
             }
         }
 

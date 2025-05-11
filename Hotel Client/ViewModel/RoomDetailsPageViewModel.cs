@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Hotel_Client.Models;
+using Hotel_Client.Models.Util;
 using Hotel_Client.Services.Interfaces;
 namespace Hotel_Client.ViewModel
 {
@@ -36,7 +37,7 @@ namespace Hotel_Client.ViewModel
         public async Task AddRoomReservation()
         {
             await _shareService.AddRoom<Room>(Room.RoomNumber, Room);
-            await _alertService.ShowAlertAsync("Confirmation", "Added room to reservation!", "Close");
+            await _alertService.ShowAlertAsync(UIText.ConfirmTitle, UIText.AddRoomConfirmMessage, UIText.CloseLabelButton);
         }
 
         private async Task GetRoomDetails()
@@ -46,7 +47,7 @@ namespace Hotel_Client.ViewModel
             if (room == null) return;
 
             Room = room;
-            HasDoubleBed = Room.HasDoubleBed ? "Yes" : "No";
+            HasDoubleBed = Room.HasDoubleBed ? "Tak" : "Nie";
         }
     }
 }

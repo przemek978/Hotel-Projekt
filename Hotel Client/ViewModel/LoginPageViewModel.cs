@@ -7,6 +7,7 @@ using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services.Interfaces;
 using Hotel_Client.Services;
 using Hotel_Client.View;
+using Hotel_Client.Models.Util;
 
 namespace Hotel_Client.ViewModel
 {
@@ -59,7 +60,7 @@ namespace Hotel_Client.ViewModel
             }
             catch (Exception e)
             {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Cancel");
+                await _alertService.ShowAlertAsync(UIText.ErrorTitle, e.Message, UIText.CancelLabelButton);
             }
         }
     }

@@ -971,7 +971,7 @@ namespace Hotel_Client.OnlineReceptionImplService
         {
             if ((endpointConfiguration == EndpointConfiguration.OnlineReceptionImplPort))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8085/HotelServer-1.0-SNAPSHOT/OnlineReceptionImplService");
+                return new System.ServiceModel.EndpointAddress("http://localhost:8080/HotelServer-1.0-SNAPSHOT/OnlineReceptionImplService");
             }
             throw new System.InvalidOperationException(string.Format("Nie można znaleźć punktu końcowego o nazwie „{0}”.", endpointConfiguration));
         }
