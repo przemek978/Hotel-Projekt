@@ -1,24 +1,26 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Hotel_Client.Models.Util;
-
-public class CustomDateTimeConverter : JsonConverter<DateTime>
+namespace Hotel_Client.Models.Util
 {
-    public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public class CustomDateTimeConverter : JsonConverter<DateTime>
     {
-        var dateString = reader.GetString();
-
-        if (dateString.EndsWith("[UTC]"))
+        public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            dateString = dateString.Replace("[UTC]", "");
+            var dateString = reader.GetString();
+
+            if (dateString.EndsWith("[UTC]"))
+            {
+                dateString = dateString.Replace("[UTC]", "");
+            }
+
+            return DateTime.Parse(dateString, null, System.Globalization.DateTimeStyles.RoundtripKind);
         }
 
-        return DateTime.Parse(dateString, null, System.Globalization.DateTimeStyles.RoundtripKind);
-    }
-
-    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
-    {
-        writer.WriteStringValue(value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ[UTC]"));
+        public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ[UTC]"));
+        }
     }
 }
+

@@ -6,204 +6,191 @@ using Hotel_Client.Models;
 using Hotel_Client.OnlineReceptionImplService;
 using Hotel_Client.Repositories.Interfaces;
 
-namespace Hotel_Client.Repositories;
-
-public class HotelRepository : IHotelRepository
+namespace Hotel_Client.Repositories
 {
-    public async Task<int> Login(string username, string password)
+    public class HotelRepository : IHotelRepository
     {
-        try
+        public async Task<int> Login(string username, string password)
         {
-            //var usPassword = new ushort?[password.Length];
+            try
+            {
+                var client = new OnlineReceptionImplClient();
+                var result = await client.loginAsync(username, password.ToString());
 
-            //for (var i = 0; i < password.Length; i++)
-            //{
-            //    usPassword[i] = password[i];
-            //}
-            //System.ServiceModel.BasicHttpBinding binding = new System.ServiceModel.BasicHttpBinding();
-            //binding.MaxBufferSize = int.MaxValue;
-            //binding.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
-            //binding.MaxReceivedMessageSize = int.MaxValue;
-            //binding.MessageEncoding = System.ServiceModel.WSMessageEncoding.Mtom;
-            //binding.Security.Mode = System.ServiceModel.BasicHttpSecurityMode.None;
-            //var client = new OnlineReceptionImplClient(binding, new EndpointAddress("http://localhost:8080/HotelServer-1.0-SNAPSHOT/OnlineReceptionImplService"));
-            var client = new OnlineReceptionImplClient();
-            var result = await client.loginAsync(username, password.ToString());
-            //var result = GetReservations(1);
-            var userId = result.@return;
+                var userId = result.@return;
 
-            return userId;
+                return userId;
+            }
+            catch (FaultException<InvalidCredentialsException> e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-        catch (FaultException<InvalidCredentialsException> e)
-        {
-            throw new Exception(e.Message);
-        }
-    }
 
-    public async Task<IReadOnlyCollection<Room>?> GetRooms(DateTime from, DateTime to)
-    {
-        try
+        public async Task<IReadOnlyCollection<Room>?> GetRooms(DateTime from, DateTime to)
         {
-            var client = new OnlineReceptionImplClient();
-            var result = await client.getAvailableRoomsAsync(from.ToString(CultureInfo.InvariantCulture),
-                to.ToString(CultureInfo.InvariantCulture));
+            try
+            {
+                var client = new OnlineReceptionImplClient();
 
-            if (result is null)
+                var result = await client.getAvailableRoomsAsync(from.ToString(CultureInfo.InvariantCulture),
+                    to.ToString(CultureInfo.InvariantCulture));
+
+                if (result is null)
+                {
+                    return null;
+                }
+
+                var resultInfo = result.@return;
+                var resultInfoList = resultInfo.Select(r => new Room
+                {
+                    RoomNumber = r.roomNumber,
+                    FloorNumber = r.floorNumber,
+                    HasDoubleBed = r.hasDoubleBed,
+                    NumberOfSingleBeds = r.numberOfSingleBeds,
+                    RoomSize = r.roomSize,
+                    Description = r.description
+                }).ToList();
+
+                return resultInfoList;
+            }
+            catch (Exception)
             {
                 return null;
             }
-
-            var resultInfo = result.@return;
-            var resultInfoList = resultInfo.Select(r => new Room
-            {
-                RoomNumber = r.roomNumber,
-                FloorNumber = r.floorNumber,
-                HasDoubleBed = r.hasDoubleBed,
-                NumberOfSingleBeds = r.numberOfSingleBeds,
-                RoomSize = r.roomSize,
-                Description = r.description
-            }).ToList();
-
-            return resultInfoList;
         }
-        catch (Exception)
-        {
-            return null;
-        }
-    }
 
-    public async Task<int> MakeReservation(List<string> roomNumbers, DateTime dateFrom, DateTime dateTo, string notes,
-        int userId)
-    {
-        try
+        public async Task<int> MakeReservation(List<string> roomNumbers, DateTime dateFrom, DateTime dateTo, string notes,
+            int userId)
         {
-            var client = GetModifiedClient().Result;
-            var response = await client.makeReservationAsync(roomNumbers.ToArray(),
-                dateFrom.ToString(CultureInfo.InvariantCulture),
-                dateTo.ToString(CultureInfo.InvariantCulture), notes, userId);
-            var reservationNumber = response.@return;
-
-            if (reservationNumber == 0)
+            try
             {
-                throw new Exception("Something went wrong...");
-            }
+                var client = GetModifiedClient().Result;
+                var response = await client.makeReservationAsync(roomNumbers.ToArray(),
+                    dateFrom.ToString(CultureInfo.InvariantCulture),
+                    dateTo.ToString(CultureInfo.InvariantCulture), notes, userId);
+                var reservationNumber = response.@return;
 
-            return reservationNumber;
-        }
-        catch (Exception e)
-        {
-            throw new Exception(e.Message);
-        }
-    }
-
-    public async Task<IReadOnlyCollection<Reservation>?> GetReservations(int userId)
-    {
-        try
-        {
-            var client = GetModifiedClient().Result;
-            var response = await client.getReservationsAsync(userId);
-
-            if (response.@return.Length == 0)
-            {
-                throw new Exception("No reservations");
-            }
-            
-            var resultInfo = response.@return.ToList();
-            var reservations = resultInfo.Select(r => new Reservation
-            {
-                Number = r.number,
-                From = r.from,
-                To = r.to,
-                Rooms = r.rooms.ToList().ConvertAll(x => new Room
+                if (reservationNumber == 0)
                 {
-                    RoomNumber = x.roomNumber,
-                    FloorNumber = x.floorNumber,
-                    HasDoubleBed = x.hasDoubleBed,
-                    NumberOfSingleBeds = x.numberOfSingleBeds,
-                    RoomSize = x.roomSize,
-                    Description = x.description
-                }),
-                OwnersId = r.ownersId,
-                Notes = r.notes
-            }).ToList();
-                
-            return reservations;
-        }
-        catch (Exception e)
-        {
-            throw new Exception(e.Message);
-        }
-    }
+                    throw new Exception("Something went wrong...");
+                }
 
-    public async Task CancelReservation(int reservationId, int userId)
-    {
-        try
-        {
-            var client = GetModifiedClient().Result;
-            await client.cancelReservationAsync(reservationId, userId);
-        }
-        catch (Exception e)
-        {
-            throw new Exception(e.Message);
-        }
-    }
-    
-    public async Task ModifyReservation(Reservation reservation, int userId)
-    {
-        try
-        {
-            var client = GetModifiedClient().Result;
-            var modifiedReservation = new modifiedReservation
+                return reservationNumber;
+            }
+            catch (Exception e)
             {
-                number = reservation.Number,
-                from = reservation.From.ToString(CultureInfo.InvariantCulture),
-                to = reservation.To.ToString(CultureInfo.InvariantCulture),
-                rooms = reservation.Rooms.Select(x => new room
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<IReadOnlyCollection<Reservation>?> GetReservations(int userId)
+        {
+            try
+            {
+                var client = GetModifiedClient().Result;
+                var response = await client.getReservationsAsync(userId);
+
+                if (response.@return == null || response.@return.Length == 0)
                 {
-                    roomNumber = x.RoomNumber,
-                    floorNumber = x.FloorNumber,
-                    hasDoubleBed = x.HasDoubleBed,
-                    numberOfSingleBeds = x.NumberOfSingleBeds,
-                    roomSize = x.RoomSize,
-                    description = x.Description
-                }).ToArray(),
-                ownersId = reservation.OwnersId,
-                notes = reservation.Notes
-            };
+                    throw new Exception("No reservations");
+                }
 
-            await client.modifyReservationAsync(modifiedReservation, userId);
+                var resultInfo = response.@return.ToList();
+                var reservations = resultInfo.Select(r => new Reservation
+                {
+                    Number = r.number,
+                    From = r.from,
+                    To = r.to,
+                    Rooms = r.rooms.ToList().ConvertAll(x => new Room
+                    {
+                        RoomNumber = x.roomNumber,
+                        FloorNumber = x.floorNumber,
+                        HasDoubleBed = x.hasDoubleBed,
+                        NumberOfSingleBeds = x.numberOfSingleBeds,
+                        RoomSize = x.roomSize,
+                        Description = x.description
+                    }),
+                    OwnersId = r.ownersId,
+                    Notes = r.notes
+                }).ToList();
+
+                return reservations;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-        catch (Exception e)
+
+        public async Task CancelReservation(int reservationId, int userId)
         {
-            throw new Exception(e.Message);
+            try
+            {
+                var client = GetModifiedClient().Result;
+                await client.cancelReservationAsync(reservationId, userId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-    }
 
-    public async Task<byte[]> GetConfirmationDocument(int reservationId, int userId)
-    {
-        try
+        public async Task ModifyReservation(Reservation reservation, int userId)
         {
-            var client = GetModifiedClient().Result;
-            var response = await client.requestReservationConfirmationAsync(reservationId, userId);
+            try
+            {
+                var client = GetModifiedClient().Result;
+                var modifiedReservation = new modifiedReservation
+                {
+                    number = reservation.Number,
+                    from = reservation.From.ToString(CultureInfo.InvariantCulture),
+                    to = reservation.To.ToString(CultureInfo.InvariantCulture),
+                    rooms = reservation.Rooms.Select(x => new room
+                    {
+                        roomNumber = x.RoomNumber,
+                        floorNumber = x.FloorNumber,
+                        hasDoubleBed = x.HasDoubleBed,
+                        numberOfSingleBeds = x.NumberOfSingleBeds,
+                        roomSize = x.RoomSize,
+                        description = x.Description
+                    }).ToArray(),
+                    ownersId = reservation.OwnersId,
+                    notes = reservation.Notes
+                };
 
-            return response.@return;
+                await client.modifyReservationAsync(modifiedReservation, userId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-        catch (Exception e)
+
+        public async Task<byte[]> GetConfirmationDocument(int reservationId, int userId)
         {
-            throw new Exception(e.Message);
+            try
+            {
+                var client = GetModifiedClient().Result;
+                var response = await client.requestReservationConfirmationAsync(reservationId, userId);
+
+                return response.@return;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-    }
 
-    private static Task<OnlineReceptionImplClient> GetModifiedClient()
-    {
-        var client = new OnlineReceptionImplClient();
-        //var modifiedClient = new EndpointAddressBuilder(client.Endpoint.Address);
-        //modifiedClient.Headers.Add(AddressHeader.CreateAddressHeader("Username", "http://server.group.hotel.com/",
-        //    Preferences.Get("UserName", "")));
-        //modifiedClient.Headers.Add(AddressHeader.CreateAddressHeader("Password", "http://server.group.hotel.com/",
-        //    Preferences.Get("PassWord", "")));
-        //client.Endpoint.Address = modifiedClient.ToEndpointAddress();
+        private static Task<OnlineReceptionImplClient> GetModifiedClient()
+        {
+            var client = new OnlineReceptionImplClient();
+            var modifiedClient = new EndpointAddressBuilder(client.Endpoint.Address);
+            modifiedClient.Headers.Add(AddressHeader.CreateAddressHeader("Username", "http://hotelserver.group.hotel.com/", App.Username));
+            modifiedClient.Headers.Add(AddressHeader.CreateAddressHeader("Password", "http://hotelserver.group.hotel.com/", App.Password));
+            client.Endpoint.Address = modifiedClient.ToEndpointAddress();
 
-        return Task.FromResult(client);
+            return Task.FromResult(client);
+        }
     }
 }

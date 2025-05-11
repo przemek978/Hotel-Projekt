@@ -4,19 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Hotel_Client.Command;
 using Hotel_Client.Models;
+using Hotel_Client.Repositories;
 using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services;
 using Hotel_Client.Services.Interfaces;
+using Hotel_Client.View;
 
 namespace Hotel_Client.ViewModel
 {
     public class HomePageViewModel : BaseViewModel
     {
-        private readonly IHotelRepository _hotelRepository;
-        private readonly IAlertService _alertService;
-        private readonly IShareService _shareService;
+        public readonly IHotelRepository _hotelRepository;
+        public readonly IAlertService _alertService;
+        public readonly IShareService _shareService;
+        public Action? CloseAction { get; set; }
 
         public DateTime DateFrom { get; set; } = DateTime.Today;
         public DateTime DateTo { get; set; } = DateTime.Today.AddDays(2);
@@ -28,28 +30,14 @@ namespace Hotel_Client.ViewModel
             set { _rooms = value; OnPropertyChanged(nameof(Rooms)); }
         }
 
-        public ICommand GetRoomsCommand { get; }
-        public ICommand GetReservationsCommand { get; }
-        public ICommand MakeReservationCommand { get; }
-        public ICommand LogoutCommand { get; }
-        public ICommand RoomSelectionCommand { get; }
-        public ICommand AddRoomCommand { get; }
-
         public HomePageViewModel(IHotelRepository hotelRepository, IAlertService alertService, IShareService shareService)
         {
             _hotelRepository = hotelRepository;
             _alertService = alertService;
             _shareService = shareService;
-
-            GetRoomsCommand = new RelayCommand(async () => await GetRooms());
-            GetReservationsCommand = new RelayCommand(GetReservations);
-            MakeReservationCommand = new RelayCommand(MakeReservation);
-            LogoutCommand = new RelayCommand(Logout);
-            RoomSelectionCommand = new RelayCommand<Room>(async room => await RoomSelection(room));
-            AddRoomCommand = new RelayCommand<Room>(async room => await AddRoom(room));
         }
 
-        private async Task GetRooms()
+        public async Task GetRooms()
         {
             try
             {
@@ -69,37 +57,49 @@ namespace Hotel_Client.ViewModel
             }
         }
 
-        private void GetReservations()
-        {
-            Application.Current.MainWindow.DataContext = new ReservationsPageViewModel(_hotelRepository, _alertService, _shareService);
-        }
-
-        private async Task RoomSelection(Room selectedRoom)
+        public async Task RoomSelection(Room selectedRoom)
         {
             await _shareService.Add("SelectedRoom", selectedRoom);
-            Application.Current.MainWindow.DataContext = new RoomDetailsPageViewModel(_shareService, _alertService);
+            var window = new RoomDetailsPage(_hotelRepository, _alertService, _shareService);
+            window.Show();
         }
 
-        private async Task AddRoom(Room selectedRoom)
+        public async Task AddRoom(Room selectedRoom)
         {
             await _shareService.AddRoom<Room>(selectedRoom.RoomNumber, selectedRoom);
             await _alertService.ShowAlertAsync("Confirmation", "Added room to reservation!", "Exit");
             Rooms.Remove(selectedRoom);
         }
 
-        private void MakeReservation()
+        public async void MakeReservation()
         {
-            Application.Current.MainWindow.DataContext = new MakeReservationPageViewModel(_shareService, _alertService, _hotelRepository);
+            var rooms = await _shareService.GetBookedRooms();
+
+            if (rooms.Count > 0)
+            {
+                var window = new MakeReservationPage(_hotelRepository, _alertService, _shareService, DateFrom, DateTo);
+                window.Show();
+            }
+            else
+            {
+                await _alertService.ShowAlertAsync("Error", "Wybierz przynajmniej jeden pokój!", "Zamknij");
+            }
         }
 
-        private void Logout()
+        public void GetReservations()
         {
-            //Properties.Settings.Default.UserID = 0;
-            //Properties.Settings.Default.UserName = string.Empty;
-            //Properties.Settings.Default.PassWord = string.Empty;
-            //Properties.Settings.Default.Save();
 
-            Application.Current.MainWindow.DataContext = new LoginPageViewModel(_hotelRepository, _alertService);
+            var window = new ReservationsPage(_hotelRepository, _alertService, _shareService);
+            window.Show();
+        }
+
+        public void Logout()
+        {
+            App.UserId = 0;
+            App.Username = string.Empty;
+            var window = new LoginPage(_hotelRepository, _alertService, _shareService);
+            window.Show();
+            CloseAction?.Invoke();
         }
     }
 }

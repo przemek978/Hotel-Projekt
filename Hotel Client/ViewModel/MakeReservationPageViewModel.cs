@@ -4,8 +4,8 @@ using System.Windows.Input;
 using Hotel_Client.Models;
 using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services.Interfaces;
-using Hotel_Client.Command;
 using System.Windows;
+using Hotel_Client.View;
 
 namespace Hotel_Client.ViewModel
 {
@@ -14,6 +14,7 @@ namespace Hotel_Client.ViewModel
         private readonly IShareService _shareService;
         private readonly IAlertService _alertService;
         private readonly IHotelRepository _hotelRepository;
+        public Action? CloseAction { get; set; }
 
         private DateTime _dateFrom = DateTime.Today;
         public DateTime DateFrom
@@ -38,24 +39,22 @@ namespace Hotel_Client.ViewModel
 
         public ObservableCollection<Room> BookedRooms { get; set; } = new();
 
-        public ICommand GetBookedRoomsCommand { get; }
-        public ICommand RemoveRoomCommand { get; }
-        public ICommand ConfirmReservationCommand { get; }
-        public ICommand BackCommand { get; }
-
-        public MakeReservationPageViewModel(IShareService shareService, IAlertService alertService, IHotelRepository hotelRepository)
+        public MakeReservationPageViewModel(IHotelRepository hotelRepository,
+            IAlertService alertService,
+            IShareService shareService,
+            DateTime dateFrom,
+            DateTime dateTo
+        )
         {
             _shareService = shareService;
             _alertService = alertService;
             _hotelRepository = hotelRepository;
-
-            GetBookedRoomsCommand = new RelayCommand(async () => await GetBookedRooms());
-            RemoveRoomCommand = new RelayCommand<Room>(async room => await RemoveRoom(room));
-            ConfirmReservationCommand = new RelayCommand(async () => await ConfirmReservation());
-            BackCommand = new RelayCommand(Back);
+            _dateFrom = dateFrom;
+            _dateTo = dateTo;
+            GetBookedRooms();
         }
 
-        private async Task GetBookedRooms()
+        public async Task GetBookedRooms()
         {
             BookedRooms.Clear();
             var rooms = await _shareService.GetBookedRooms();
@@ -73,17 +72,17 @@ namespace Hotel_Client.ViewModel
             }
         }
 
-        private async Task RemoveRoom(Room selectedRoom)
+        public async Task RemoveRoom(Room selectedRoom)
         {
             BookedRooms.Remove(selectedRoom);
             await _shareService.RemoveRoom<Room>(selectedRoom);
         }
 
-        private async Task ConfirmReservation()
+        public async Task ConfirmReservation()
         {
             try
             {
-                var userId = Properties.Settings.Default.UserID;
+                var userId = App.UserId;
                 var bookedRoomsNumbers = BookedRooms.Select(r => r.RoomNumber).ToList();
                 var reservationNumber = await _hotelRepository.MakeReservation(bookedRoomsNumbers, DateFrom, DateTo, Note, userId);
 
@@ -98,7 +97,7 @@ namespace Hotel_Client.ViewModel
             }
         }
 
-        private void Back()
+        public void Back()
         {
             Application.Current.MainWindow.DataContext = new HomePageViewModel(_hotelRepository, _alertService, _shareService);
         }

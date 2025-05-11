@@ -8,7 +8,7 @@
       "System.Collections.Generic.Dictionary`2"
     ],
     "namespaceMappings": [
-      "*, HotelReservation.OnlineReceptionImplService"
+      "*, Hotel_Client.OnlineReceptionImplService"
     ],
     "targetFramework": "net8.0",
     "typeReuseMode": "All"

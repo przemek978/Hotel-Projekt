@@ -4,8 +4,6 @@ using System.Windows.Input;
 using Hotel_Client.Models;
 using Hotel_Client.Repositories.Interfaces;
 using Hotel_Client.Services.Interfaces;
-using Hotel_Client.Command;
-
 namespace Hotel_Client.ViewModel
 {
     public class ReservationDetailsPageViewModel : BaseViewModel
@@ -44,19 +42,42 @@ namespace Hotel_Client.ViewModel
 
         public ObservableCollection<Room> ReservationRooms { get; set; } = new();
 
-        public ICommand GetReservationDetailsCommand { get; }
-        public ICommand RemoveRoomCommand { get; }
-        public ICommand SaveChangesCommand { get; }
-
-        public ReservationDetailsPageViewModel(IShareService shareService, IHotelRepository hotelRepository, IAlertService alertService)
+        public ReservationDetailsPageViewModel(IHotelRepository hotelRepository, IAlertService alertService, IShareService shareService)
         {
             _shareService = shareService;
             _hotelRepository = hotelRepository;
             _alertService = alertService;
+            GetReservationDetails();
+        }
 
-            GetReservationDetailsCommand = new RelayCommand(async () => await GetReservationDetails());
-            RemoveRoomCommand = new RelayCommand<Room>(async room => await RemoveRoom(room));
-            SaveChangesCommand = new RelayCommand(async () => await SaveChanges());
+        public Task RemoveRoom(Room selectedRoom)
+        {
+            ReservationRooms.Remove(selectedRoom);
+            return Task.CompletedTask;
+        }
+
+        public async Task SaveChanges()
+        {
+            try
+            {
+                var userId = App.UserId;
+                var newReservation = new Reservation
+                {
+                    Number = Reservation.Number,
+                    From = DateFrom,
+                    To = DateTo,
+                    Rooms = new List<Room>(ReservationRooms),
+                    OwnersId = Reservation.OwnersId,
+                    Notes = Note
+                };
+
+                await _hotelRepository.ModifyReservation(newReservation, userId);
+                await _alertService.ShowAlertAsync("Confirmation", "Saved changes!", "Close");
+            }
+            catch (Exception e)
+            {
+                await _alertService.ShowAlertAsync("Error", e.Message, "Close");
+            }
         }
 
         private async Task GetReservationDetails()
@@ -75,36 +96,6 @@ namespace Hotel_Client.ViewModel
             DateFrom = reservation.From;
             DateTo = reservation.To;
             Note = reservation.Notes;
-        }
-
-        private Task RemoveRoom(Room selectedRoom)
-        {
-            ReservationRooms.Remove(selectedRoom);
-            return Task.CompletedTask;
-        }
-
-        private async Task SaveChanges()
-        {
-            try
-            {
-                var userId = Properties.Settings.Default.UserID;
-                var newReservation = new Reservation
-                {
-                    Number = Reservation.Number,
-                    From = DateFrom,
-                    To = DateTo,
-                    Rooms = new List<Room>(ReservationRooms),
-                    OwnersId = Reservation.OwnersId,
-                    Notes = Note
-                };
-
-                await _hotelRepository.ModifyReservation(newReservation, userId);
-                await _alertService.ShowAlertAsync("Confirmation", "Saved changes!", "Close");
-            }
-            catch (Exception e)
-            {
-                await _alertService.ShowAlertAsync("Error", e.Message, "Close");
-            }
         }
     }
 }

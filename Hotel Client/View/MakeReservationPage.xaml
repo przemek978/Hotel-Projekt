@@ -1,12 +1,17 @@
 <Window x:Class="Hotel_Client.View.MakeReservationPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:Hotel_Client.ViewModel"
-        Title="Make Reservation" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        xmlns:res="clr-namespace:Hotel_Client.Models.Util"
+        Title="{x:Static res:UIText.ReservationTitle}" Height="1000" Width="1000" WindowStartupLocation="CenterScreen">
 
-    <Window.DataContext>
-        <vm:MakeReservationPageViewModel />
-    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/FieldStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <ScrollViewer>
         <Grid Background="White" Margin="20">
@@ -15,30 +20,37 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Make a reservation" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <TextBlock Grid.Row="0" Text="{x:Static res:UIText.ReservationTitle}" 
+                       FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
             <StackPanel Grid.Row="1" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                     <StackPanel Margin="10">
-                        <TextBlock Text="From"/>
-                        <DatePicker SelectedDate="{Binding DateFrom}"/>
+                        <TextBlock Text="{x:Static res:UIText.FromDate}"/>
+                        <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Style="{StaticResource InputDatePickerStyle}" />
                     </StackPanel>
                     <StackPanel Margin="10">
-                        <TextBlock Text="To"/>
-                        <DatePicker SelectedDate="{Binding DateTo}"/>
+                        <TextBlock Text="{x:Static res:UIText.ToDate}"/>
+                        <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Style="{StaticResource InputDatePickerStyle}" />
                     </StackPanel>
                 </StackPanel>
 
                 <Border BorderBrush="#4087a7" BorderThickness="1" CornerRadius="10" Width="400" Height="300" Margin="0,0,0,20">
-                    <TextBox Text="{Binding Note}" AcceptsReturn="True" TextWrapping="Wrap" FontWeight="Bold" Foreground="Black" Padding="10"/>
+                    <TextBox Text="{Binding Note}" Style="{StaticResource InputTextAreaStyle}" />
                 </Border>
 
-                <Button Content="Confirm reservation" Command="{Binding ConfirmReservationCommand}" Width="200" Height="40" Background="#4087a7" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                <Button Content="{x:Static res:UIText.ReservationButton}" 
+                        Click="ConfirmReservation_Click" 
+                        Style="{StaticResource SearchButtonStyle}" 
+                        Width="200" Height="40" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-                <ItemsControl ItemsSource="{Binding BookedRooms}">
+                <ItemsControl x:Name="BookedRoomsControl" ItemsSource="{Binding BookedRooms}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="DarkGray" CornerRadius="14" Padding="10" Margin="5">
+                            <Border Background="White" BorderBrush="#dcdcdc" BorderThickness="1"
+                                    CornerRadius="10" Padding="15" Margin="10">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
@@ -46,15 +58,28 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding RoomNumber, StringFormat=Room number: {0}}" Foreground="White" FontWeight="Bold"/>
-                                    <Button Grid.Row="0" Grid.Column="1" Content="Remove" Command="{Binding DataContext.RemoveRoomCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding .}" Margin="5,0,0,0"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                                       Text="{Binding RoomNumber, StringFormat={x:Static res:UIText.RoomNumberFormat}}"
+                                       FontWeight="Bold" FontSize="14" Foreground="#2c3e50"/>
+                                    
+                                    <Button Grid.Row="0" Grid.Column="1" 
+                                        Content="{x:Static res:UIText.DeleteButton}"
+                                        Click="RemoveRoom_Click"
+                                        Tag="{Binding}"
+                                        Margin="10,0,0,0"
+                                        Style="{StaticResource DeleteButtonStyle}"/>
 
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RoomSize, StringFormat=Room size: {0} square meters}" Foreground="White" FontWeight="Bold"/>
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Description, StringFormat=Description: {0}}" Foreground="White" Margin="0,10,0,0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                                       Text="{Binding RoomSize, StringFormat={x:Static res:UIText.RoomSizeFormat}}"
+                                       Foreground="#555" Margin="0,5,0,0"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                       Text="{Binding Description, StringFormat={x:Static res:UIText.DescriptionFormat}}"
+                                       Foreground="#777" FontStyle="Italic" Margin="0,5,0,0"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>

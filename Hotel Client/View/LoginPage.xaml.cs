@@ -1,22 +1,34 @@
 using System.Windows;
 using System.Windows.Controls;
+using Hotel_Client.Repositories.Interfaces;
+using Hotel_Client.Services.Interfaces;
 using Hotel_Client.ViewModel;
 
 namespace Hotel_Client.View
 {
     public partial class LoginPage : Window
     {
-        public LoginPage()
+        public LoginPage(IHotelRepository hotelRepository, IAlertService alertService, IShareService shareService)
         {
             InitializeComponent();
-            var viewModel = new LoginPageViewModel();
+            var viewModel = new LoginPageViewModel(hotelRepository, alertService, shareService);
             DataContext = viewModel;
+        }
 
-            // Powi¹zanie has³a z ViewModelem, zak³adaj¹c ¿e ViewModel ma Password jako string
-            PasswordBox.PasswordChanged += (s, e) =>
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginPageViewModel viewModel && sender is PasswordBox passwordBox)
             {
-                viewModel.Password = PasswordBox.Password;
-            };
+                viewModel.Password = passwordBox.Password;
+            }
+        }
+
+        private async void Login_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginPageViewModel viewModel)
+            {
+                await viewModel.Login();
+            }
         }
     }
 }
