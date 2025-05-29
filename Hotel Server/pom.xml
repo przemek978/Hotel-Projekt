@@ -8,7 +8,8 @@
     <artifactId>HotelServer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Hotel Server</name>
-    <packaging>war</packaging>
+    <!-- Zmieniamy na jar, bo chcemy uruchamiać jako samodzielny JAR -->
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,10 +46,36 @@
 
     <build>
         <plugins>
+            <!-- Plugin do kompilacji i budowania fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <!-- Podaj pełną nazwę klasy z metodą main -->
+                                    <mainClass>com.hotel.group.hotelserver.ReceptionPublisher</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Kompilator Java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
         <resources>

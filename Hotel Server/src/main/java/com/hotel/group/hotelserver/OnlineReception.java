@@ -1,10 +1,10 @@
 package com.hotel.group.hotelserver;
-
+import javax.jws.WebService;
 import com.itextpdf.text.DocumentException;
 import java.util.Date;
 import java.util.List;
 
-
+@WebService
 public interface OnlineReception {
     
     int login(String username, String password) throws InvalidCredentialsException;
